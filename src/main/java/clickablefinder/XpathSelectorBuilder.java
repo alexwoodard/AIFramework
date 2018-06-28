@@ -1,4 +1,4 @@
-package crawler;
+package clickablefinder;
 
 import java.util.List;
 

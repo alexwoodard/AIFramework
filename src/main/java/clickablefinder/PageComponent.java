@@ -1,4 +1,4 @@
-package crawler;
+package clickablefinder;
 
 
 import java.util.ArrayList;
@@ -6,12 +6,23 @@ import java.util.ArrayList;
 public class PageComponent {
 	private String selector;
 	private PageComponent parent;
+	private String cssClass;
+
 
 	private ArrayList<PageComponent> children = new ArrayList<PageComponent>();
 	
-	public PageComponent(String selector, PageComponent parent){
+	public PageComponent(String selector, PageComponent parent, String cssClass){
 		this.selector=selector;
 		this.parent=parent;
+		this.cssClass=cssClass;
+	}
+	
+	public String getCssClass() {
+		return cssClass;
+	}
+
+	public void setCssClass(String cssClass) {
+		this.cssClass = cssClass;
 	}
 	
 	public PageComponent getParent() {

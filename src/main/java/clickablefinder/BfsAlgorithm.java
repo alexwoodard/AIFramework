@@ -1,5 +1,4 @@
-package crawler;
-
+package clickablefinder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +25,22 @@ public class BfsAlgorithm {
 				if (componentSize > 0 && child.isDisplayed() && child.isEnabled() && !componentID.equals("debug-footer")
 						&& !componentClass.equals("footer")) {
 					String childSelector = xpathSelectorBuilder.generateXPATH(child, "");
-					PageComponent childComponent = new PageComponent(childSelector, pc);
+					PageComponent childComponent = new PageComponent(childSelector, pc, componentClass);
 					pc.getChildren().add(childComponent);
-					queue.add(childComponent);
-					if(returnString.equals("")){
-						returnString = childSelector;
-					}else{
-						returnString+=","+childSelector;
+
+					/**
+					 * ignore anything inside of a clickable
+					 */
+					if (!childSelector.contains("/a[") && !childSelector.contains("/button[")) {
+						queue.add(childComponent);
 					}
-					System.out.println("[DEBUG] selector: " + childSelector + " with size: " + componentSize);
+
+					if (returnString.equals("")) {
+						returnString = childSelector;
+					} else {
+						returnString += "," + childSelector;
+					}
+					System.out.println("[DEBUG] selector: " + childComponent.getSelector() + " with class: " + childComponent.getCssClass());
 				}
 			}
 		}
