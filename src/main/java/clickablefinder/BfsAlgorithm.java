@@ -1,6 +1,7 @@
 package clickablefinder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -17,30 +18,37 @@ public class BfsAlgorithm {
 		while (!queue.isEmpty()) {
 			PageComponent pc = queue.remove(0);
 			WebElement element = driver.findElement(By.xpath(pc.getSelector()));
-			List<WebElement> children = element.findElements(By.xpath("*"));
+			List<WebElement> children;
+			List<WebElement> anchorChildren = element.findElements(By.xpath(".//a"));
+			List<WebElement> buttonChildren = element.findElements(By.xpath(".//button"));
+			children = buttonChildren;
+			children.addAll(anchorChildren);
 			for (WebElement child : children) {
 				int componentSize = getComponentSize(child);
-				String componentID = child.getAttribute("id");
 				String componentClass = child.getAttribute("class");
-				if (componentSize > 0 && child.isDisplayed() && child.isEnabled() && !componentID.equals("debug-footer")
-						&& !componentClass.equals("footer")) {
+				/**
+				 * ignore the footer the debug footer the support footer the
+				 * footer nav items and the utility bar
+				 */
+				if (componentSize > 0 && child.isDisplayed() && child.isEnabled()) {
+
 					String childSelector = xpathSelectorBuilder.generateXPATH(child, "");
-					PageComponent childComponent = new PageComponent(childSelector, pc, componentClass);
-					pc.getChildren().add(childComponent);
+					ArrayList<String> unwantedClasses = new ArrayList<>(
+							Arrays.asList("footer", "utility-bar", "support-footer-number", "footernav-item"));
 
-					/**
-					 * ignore anything inside of a clickable
-					 */
-					if (!childSelector.contains("/a[") && !childSelector.contains("/button[")) {
-						queue.add(childComponent);
-					}
+					if (!componentClass.contains("footernav-item") && !componentClass.contains("topnav-logo")
+							&& !hasUnwantedAncestorClass(childSelector, driver, unwantedClasses)) {
+						PageComponent childComponent = new PageComponent(childSelector, pc, componentClass);
 
-					if (returnString.equals("")) {
-						returnString = childSelector;
-					} else {
-						returnString += "," + childSelector;
+						if (returnString.equals("")) {
+							returnString = childSelector;
+						} else {
+							returnString += "," + childSelector;
+						}
+
+						System.out.println("[DEBUG] selector: " + childComponent.getSelector() + " with class(s): "
+								+ childComponent.getCssClass());
 					}
-					System.out.println("[DEBUG] selector: " + childComponent.getSelector() + " with class: " + childComponent.getCssClass());
 				}
 			}
 		}
@@ -49,5 +57,23 @@ public class BfsAlgorithm {
 
 	private int getComponentSize(WebElement component) {
 		return component.getSize().height * component.getSize().width;
+	}
+
+	private Boolean hasUnwantedAncestorClass(String xPath, WebDriver driver, ArrayList<String> unwantedClasses) {
+		while (xPath.length() > 1) {
+			int endIndex = xPath.lastIndexOf("/");
+			xPath = xPath.substring(0, endIndex);
+			if (xPath.length() == 0) {
+				break;
+			}
+			WebElement parentElement = driver.findElement(By.xpath(xPath));
+			String parentClasses = parentElement.getAttribute("class");
+			for (String unwantedClass : unwantedClasses) {
+				if (parentClasses.contains(unwantedClass)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }
