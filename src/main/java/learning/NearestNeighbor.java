@@ -2,7 +2,7 @@ package learning;
 
 import component.Clickable;
 
-public class KNearest {
+public class NearestNeighbor {
 
 	public int computeScore(Clickable expected, Clickable actual){
 		int averagePixelDiff = Math.abs(expected.getAveragePixelValue() - actual.getAveragePixelValue());
