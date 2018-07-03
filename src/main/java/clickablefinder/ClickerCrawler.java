@@ -7,7 +7,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class ClickerCrawler2 {
+public class ClickerCrawler {
 	public void search(WebDriver driver) throws InterruptedException {
 		String currentUrl = driver.getCurrentUrl();
 		ArrayList<Point> points = new ArrayList<Point>();
