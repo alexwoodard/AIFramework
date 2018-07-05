@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import clickablefinder.ClickerCrawler;
+import clicker.Clicker;
 
 public class Runner {
 
@@ -25,7 +25,7 @@ public class Runner {
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		ChromeDriver rwd =new ChromeDriver();
 //		RemoteWebDriver rwd = new RemoteWebDriver(new URL(gridAddress), capability);
-		ClickerCrawler crawler = new ClickerCrawler();
+		Clicker crawler = new Clicker();
 		rwd.get("https://www.godaddy.com/websites/website-builder");
 		rwd.manage().window().maximize();
 		Dimension d = new Dimension(2024, 900);

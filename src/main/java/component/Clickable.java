@@ -19,12 +19,12 @@ public class Clickable {
 		y = point.y;
 		href = webElement.getAttribute("href");
 	
-		try {
-			averagePixelValue = new AveragePixelValue(webElement);
-		} catch (AWTException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			averagePixelValue = new AveragePixelValue(webElement);
+//		} catch (AWTException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 
 	private Dimension dimension;
@@ -34,7 +34,7 @@ public class Clickable {
 	private int x;
 	private int y;
 	private String href;
-	private AveragePixelValue averagePixelValue;
+//	private AveragePixelValue averagePixelValue;
 	
 	public Dimension getDimension() {
 		return dimension;
@@ -57,7 +57,7 @@ public class Clickable {
 	public String getHref() {
 		return href;
 	}
-	public int getAveragePixelValue() {
-		return averagePixelValue.getAverage();
-	}
+//	public int getAveragePixelValue() {
+//		return averagePixelValue.getAverage();
+//	}
 }
