@@ -1,6 +1,6 @@
 package learning;
 
-import component.Clickable;
+import component.clickable.Clickable;
 
 public class NearestNeighbor {
 

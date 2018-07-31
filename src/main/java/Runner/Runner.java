@@ -26,17 +26,15 @@ public class Runner {
 		ChromeDriver rwd =new ChromeDriver();
 //		RemoteWebDriver rwd = new RemoteWebDriver(new URL(gridAddress), capability);
 		Clicker crawler = new Clicker();
-		rwd.get("https://www.godaddy.com/websites/website-builder");
+		rwd.get("https://www.godaddy.com/tlds/com-domain");
 		rwd.manage().window().maximize();
 		Dimension d = new Dimension(2024, 900);
 		rwd.manage().window().setSize(d);
 		synchronized (rwd) {
 			rwd.wait(5000);
-			File scrFile = ((TakesScreenshot)rwd).getScreenshotAs(OutputType.FILE);
-			FileUtils.copyFile(scrFile, new File("screenshot.png"));
 		}
 
-		crawler.search(rwd);
+		crawler.crawl(rwd);
 		System.out.println("Crawl Complete");
 	}
 }
