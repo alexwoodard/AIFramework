@@ -58,7 +58,7 @@ public class Clicker {
 						Random rand = new Random();
 						int n = rand.nextInt(50) + 1;
 						String fileName = String.valueOf(n)+".jpg";
-						clickablesUnderTest.add(new Clickable(element,true,String.valueOf(n),driver));
+						clickablesUnderTest.add(new Clickable(element));
 					} catch (AWTException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -95,7 +95,7 @@ public class Clicker {
 			for (WebElement element : clickerCrawler.getAllClickableElements(driver)) {
 				Clickable clickable = null;
 				try {
-					clickable = new Clickable(element, false, null, null);
+					clickable = new Clickable(element);
 				} catch (AWTException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

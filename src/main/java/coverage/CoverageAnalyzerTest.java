@@ -51,7 +51,7 @@ public class CoverageAnalyzerTest {
 
 			BufferedImage originalImage = ImageIO.read(originalFile);
 			BufferedImage scaledImage = ImageIO.read(newFile);
-			ca.generateReport(cc, originalImage, scaledImage);
+			ca.generateReport(cc, scaledImage);
 		} catch (Exception e) {
 			driver.close();
 			driver.quit();

@@ -5,6 +5,10 @@ import org.openqa.selenium.Point;
 
 public abstract class AbstractComponent {
 	protected Point point;
+	protected Point screenshotPoint;
+	protected Dimension dimension;
+	protected String text;
+	
 	public Point getPoint() {
 		return point;
 	}
@@ -23,6 +27,10 @@ public abstract class AbstractComponent {
 	public void setText(String text) {
 		this.text = text;
 	}
-	protected Dimension dimension;
-	protected String text;
+	public Point getScreenshotPoint() {
+		return screenshotPoint;
+	}
+	public void setScreenshotPoint(Point screenshotPoint) {
+		this.screenshotPoint = screenshotPoint;
+	}
 }
