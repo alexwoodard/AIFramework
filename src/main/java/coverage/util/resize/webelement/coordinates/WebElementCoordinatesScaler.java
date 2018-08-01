@@ -9,11 +9,11 @@ public class WebElementCoordinatesScaler {
 	public Point scalePoints(Point originalPoint, BufferedImage originalImage, BufferedImage newImage){
 		
 		
-		int originalX = originalPoint.x;
-		int originalY = originalPoint.y;
+//		int originalX = originalPoint.x;
+//		int originalY = originalPoint.y;
 		double xScalerNom = newImage.getWidth();
 		double xScalerDenom = originalImage.getWidth();
-		double xScaler = xScalerNom/originalImage.getWidth();
+		double xScaler = xScalerNom/xScalerDenom;
 
 		double yScalerNom = newImage.getHeight();
 		double yScalerDenom = originalImage.getHeight();

@@ -10,29 +10,28 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 
 import component.clickable.Clickable;
+import coverage.util.resize.ImageResizer;
+import coverage.util.resize.webelement.coordinates.WebElementCoordinatesScaler;
+import coverage.util.resize.webelement.dimension.WebElementDimensionScaler;
 
 public class CoverageAnalyzer {
-	public void generateReport(ClickCoverage clickCoverage, BufferedImage fullPageImage) throws IOException {
+	public void generateReport(ClickCoverage clickCoverage, BufferedImage originalImage, BufferedImage scaledImage) throws IOException {
 		System.out.println("[DEBUG] Generating Code Coverage Report");
+		ImageResizer ir = new ImageResizer();
 
-		// BufferedImage coverageImage = new
-		// BufferedImage(fullPageImage.getWidth(),fullPageImage.getHeight(),BufferedImage.TYPE_INT_ARGB);
 		/**
 		 * go through all clicks and highlight clicked area
 		 */
+		WebElementDimensionScaler weds = new  WebElementDimensionScaler();
+		WebElementCoordinatesScaler wecs = new WebElementCoordinatesScaler();
 		for (Clickable clickable : clickCoverage.allClicks) {
-			BufferedImage componentImage = clickable.getImage();
-			Point clickablePoint = clickable.getPoint();
-			int componentWidth = componentImage.getWidth();
-			int componentHeight = componentImage.getHeight();
+			Dimension scaledDimention = weds.scaleDimension(clickable.getDimension(), originalImage, scaledImage);
+			Point scaledPoint = wecs.scalePoints(clickable.getPoint(), originalImage, scaledImage);
 
-			System.out
-					.println("Full image height: " + fullPageImage.getHeight() + " width: " + fullPageImage.getWidth());
-
-			for (int x = clickablePoint.x; x < clickablePoint.x + componentWidth; x++) {
-				for (int y = clickablePoint.y; y < clickablePoint.y + componentHeight; y++) {
+			for (int x = clickable.getPoint().x; x < clickable.getPoint().x + clickable.getDimension().width; x++) {
+				for (int y = clickable.getPoint().y; y < clickable.getPoint().y + clickable.getDimension().height; y++) {
 					try {
-						fullPageImage.setRGB(x, y, new Color(255, 0, 0).getRGB());
+						scaledImage.setRGB(x, y, new Color(255, 0, 0).getRGB());
 					} catch (Exception e) {
 						System.out.println("[DEBUG] Issue highlighting pixel at x:" + x + " y:" + y);
 					}
@@ -40,6 +39,6 @@ public class CoverageAnalyzer {
 			}
 		}
 		File outputfile = new File("heatmap.png");
-		ImageIO.write(fullPageImage, "png", outputfile);
+		ImageIO.write(scaledImage, "png", outputfile);
 	}
 }
