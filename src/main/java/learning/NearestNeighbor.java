@@ -5,20 +5,19 @@ import component.clickable.Clickable;
 public class NearestNeighbor {
 
 	public int computeScore(Clickable expected, Clickable actual) {
-//		int averagePixelDiff = Math.abs(expected.getAveragePixelValue() - actual.getAveragePixelValue());
-		int xDiff = Math.abs(expected.getX() - actual.getX());
-		int yDiff = Math.abs(expected.getY() - actual.getY());
+		int xDiff = Math.abs(expected.getPoint().x - actual.getPoint().x);
+		int yDiff = Math.abs(expected.getPoint().y - actual.getPoint().y);
 		int textDiff;
 		if (expected.getText().equals(actual.getText())) {
 			textDiff = 0;
 		} else {
 			textDiff = 1;
 		}
-		int sizeDiff = Math.abs(expected.getSize() - actual.getSize());
+		int sizeDiff = Math.abs(expected.getDimension().getHeight() * expected.getDimension().getWidth()
+				- actual.getDimension().getHeight() * actual.getDimension().getWidth());
 		int heightDiff = Math.abs(expected.getDimension().height - actual.getDimension().height);
 		int widthDiff = Math.abs(expected.getDimension().width - actual.getDimension().width);
 
-//		return averagePixelDiff + xDiff + yDiff + textDiff + sizeDiff + heightDiff + widthDiff;
 		return xDiff + yDiff + textDiff + sizeDiff + heightDiff + widthDiff;
 	}
 }
