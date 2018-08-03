@@ -6,7 +6,7 @@ import component.clickable.Clickable;
 
 public class ClickCoverage {
 
-	ArrayList<Clickable> allClicks = new ArrayList<Clickable>();
+	public ArrayList<Clickable> allClicks = new ArrayList<Clickable>();
 	
 	public ArrayList<Clickable> getAllClicks() {
 		return allClicks;

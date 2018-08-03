@@ -23,7 +23,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import coverage.ClickCoverage;
-import coverage.CoverageAnalyzer;
+import coverage.analyzer.CoverageAnalyzer;
 import coverage.util.ElementScrollIntoViewHelper;
 
 public class ClickableTest {

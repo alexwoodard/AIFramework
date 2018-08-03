@@ -19,7 +19,8 @@ import org.openqa.selenium.WebElement;
 
 import component.clickable.Clickable;
 import coverage.ClickCoverage;
-import coverage.CoverageAnalyzer;
+import coverage.analyzer.CoverageAnalyzer;
+import coverage.fullpage.FullPageScreenshotBuilder;
 import crawler.ClickerCrawler;
 import ignore.IgnoreResolver;
 import learning.NearestNeighbor;
@@ -30,6 +31,8 @@ public class Clicker {
 
 	public void crawl(WebDriver driver) throws InterruptedException, IOException {
 		String urlUnderTest = driver.getCurrentUrl();
+		FullPageScreenshotBuilder fpsb = new FullPageScreenshotBuilder();
+		
 		/**
 		 * get all selectors of components where you want to ignore clickables
 		 */
@@ -120,13 +123,18 @@ public class Clicker {
 				System.out.println("[DEBUG] Could not click on " + nearestNeighborElement.getLocation().x + " "
 						+ nearestNeighborElement.getLocation().y);
 			} else {
-				int bottom = p.getY() + p.getDimension().height;
-				System.out.println("[DEBUG] Clicked on Y:" + p.getY() + " down to Y:" + bottom);
+				int bottom = p.getPoint().y + p.getDimension().height;
+				System.out.println("[DEBUG] Clicked on Y:" + p.getPoint().y + " down to Y:" + bottom);
 				clickCoverage.addClick(p);
 			}
 			clicked = false;
 		}
 		CoverageAnalyzer coverageAnalyzer = new CoverageAnalyzer();
-		coverageAnalyzer.generateReport(clickCoverage);
+
+
+		File file = new File("images/fullpage/fullpage.png");
+
+		BufferedImage fullscreen = ImageIO.read(file);
+		coverageAnalyzer.generateReport(clickCoverage,fullscreen);
 	}
 }
