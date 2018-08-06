@@ -24,7 +24,7 @@ public class Runner {
 
 	public static void main(String args[]) throws Exception {
 		
-		String pageUnderTest = "https://www.godaddy.com/websites/website-builder";
+		String pageUnderTest = "https://www.google.com";
 
 		String gridAddress = "http://10.32.64.63:4444/wd/hub";
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
@@ -54,6 +54,8 @@ public class Runner {
 		driver.quit();
 
 		crawler.crawl(rwd);
+		rwd.close();
+		rwd.quit();
 		System.out.println("Crawl Complete");
 	}
 }
