@@ -1,21 +1,8 @@
 package Runner;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
 import chrome.ChromeDriverEx;
 import clicker.Clicker;
 import coverage.fullpage.FullPageScreenshotBuilder;
@@ -24,15 +11,11 @@ public class Runner {
 
 	public static void main(String args[]) throws Exception {
 		
-		String pageUnderTest = "https://www.google.com";
-
-		String gridAddress = "http://10.32.64.63:4444/wd/hub";
+		String pageUnderTest = args[0];
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		ChromeDriver rwd =new ChromeDriver();
-//		RemoteWebDriver rwd = new RemoteWebDriver(new URL(gridAddress), capability);
 		Clicker crawler = new Clicker();
 		rwd.get(pageUnderTest);
-		rwd.manage().window().maximize();
 		Dimension d = new Dimension(1000, 1000);
 		rwd.manage().window().setSize(d);
 		synchronized (rwd) {
